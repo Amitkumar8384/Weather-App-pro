@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f172a" />
+<title>Weather Pro</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+</head>
+<body>
+  <canvas id="rainCanvas" class="rain-layer" aria-hidden="true"></canvas>
+
+  <div class="app">
+    <header class="header">
+      <h1>Weather Pro Dashboard</h1>
+      <p>Fast city search, current location weather, and 5-day outlook.</p>
+      <div class="controls">
+        <input id="cityInput" type="text" placeholder="Search city (e.g. Delhi, London, Tokyo)" />
+        <button class="btn-primary modern-search" id="searchBtn">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          Search
+        </button>
+        <button class="btn-ghost glass-btn" id="locBtn">
+          <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+          Use My Location
+        </button>
+        <div class="unit-toggle" role="group" aria-label="Temperature unit">
+          <button class="btn-unit active" id="unitC" type="button">&deg;C</button>
+          <button class="btn-unit" id="unitF" type="button">F</button>
+        </div>
+      </div>
+      <div class="theme-row">
+        <span class="theme-label"><i class="fa-solid fa-palette" aria-hidden="true"></i> Theme</span>
+        <div class="theme-switch" role="group" aria-label="Theme switch">
+          <button class="theme-btn active" id="themeOcean" type="button">Ocean</button>
+          <button class="theme-btn" id="themeSunset" type="button">Sunset</button>
+          <button class="theme-btn" id="themeNeon" type="button">Neon</button>
+        </div>
+      </div>
+      <div class="recent" id="recentSearches"></div>
+      <div class="message" id="statusMsg"></div>
+    </header>
+
+    <main class="main">
+      <section class="panel">
+        <div class="current-top">
+          <div>
+            <div class="city" id="cityName">-</div>
+            <div class="meta" id="localTime">Local time: -</div>
+          </div>
+          <div class="weather-icon-wrap">
+            <i class="fa-solid fa-cloud-sun weather-icon" id="weatherIcon" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="temp" id="temp">--&deg;C</div>
+        <div class="desc" id="condition">Condition: -</div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Wind</div>
+            <div class="stat-value" id="wind">-</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Humidity</div>
+            <div class="stat-value" id="humidity">-</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Feels Like</div>
+            <div class="stat-value" id="feelsLike">-</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>5-Day Forecast</h2>
+        <div class="forecast-list" id="forecastList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>AI Weather Prediction</h2>
+        <div class="ai-card">
+          <div class="ai-score"><span id="aiConfidence">--</span> confidence</div>
+          <p id="aiPrediction">AI prediction will appear after weather loads.</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Temperature Trend</h2>
+        <canvas id="tempChart" class="chart-canvas" aria-label="Temperature chart"></canvas>
+      </section>
+
+      <section class="panel">
+        <h2>3D Globe Map</h2>
+        <div id="globeMap" class="globe-map"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Humidity and Rain</h2>
+        <canvas id="rainChart" class="chart-canvas" aria-label="Rain and humidity chart"></canvas>
+      </section>
+
+      <section class="panel map-panel">
+        <h2>City Map</h2>
+        <iframe
+          id="cityMap"
+          class="city-map"
+          title="City map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=77.00%2C28.45%2C77.35%2C28.75&layer=mapnik&marker=28.6139%2C77.2090"
+        ></iframe>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/three"></script>
+  <script src="https://unpkg.com/globe.gl"></script>
+  <script src="wr.js"></script>
+</body>
+</html>
