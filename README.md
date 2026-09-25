@@ -293,5 +293,4 @@ This project was created for **learning, portfolio, and demonstration purposes**
 ### 🚀 Keep Learning. Keep Building.
 
 </div>
-```
-dnight Journal, Weather App** sabka basic README/About cleanup ho gaya. Next step **portfolio website itself ko recruiter-ready check karna** hoga.
+
